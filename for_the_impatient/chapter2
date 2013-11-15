@@ -1,0 +1,145 @@
+1. The signum of a number is 1 if the number is positive, –1 if it is negative, and 0 if it is zero. Write a function that computes this value.
+
+scala> def signum(numero: Int) = { if (numero == 0) 0 else { if(numero > 0) 1 else -1  } }
+signum: (numero: Int)Int
+
+Tests
+
+scala> signum(0)
+res30: Int = 0
+
+scala> signum(123)
+res31: Int = 1
+
+scala> signum(-234)
+res32: Int = -1
+
+
+2. What is the value of an empty block expression {}? What is its type?
+
+scala> def a {}
+a: Unit
+
+
+3. Come up with one situation where the assignment x = y = 1 is valid in Scala.
+(Hint: Pick a suitable type for x.)
+
+scala> var x = y = 1
+x: Unit = ()
+
+
+4. Write a Scala equivalent for the Java loop
+for (int i = 10; i >= 0; i--) System.out.println(i);
+
+scala> for (i <- 0 until 10) println(10 - i) 
+10
+9
+8
+7
+6
+5
+4
+3
+2
+1
+
+5. Write a procedure countdown(n: Int) that prints the numbers from n to 0.
+
+
+scala> def countdown(n: Int) { for(i <- 0 to n) println(n - i) }
+countdown: (n: Int)Unit
+
+scala> countdown(6)
+6
+5
+4
+3
+2
+1
+0
+
+
+
+6. Write a for loop for computing the product of the Unicode codes of all letters in a string. For example, the product of the characters in "Hello" is 825152896.
+
+scala> result = 1
+result: Int = 1
+
+scala>  for( ch <- "Hello") result *= ch.toInt; println(result)
+825152896
+
+7. Solve the preceding exercise without writing a loop. (Hint: Look at the StringOps
+Scaladoc.)
+
+scala> result = 1
+result: Int = 1
+
+scala> "Hello".foreach(result *= _.toInt)
+
+scala> result
+res67: Int = 825152896
+
+
+
+
+8. Write a function product(s : String) that computes the product, as described in the preceding exercises.Exercises
+
+scala> def product(s: String) :Int = { result = 1; s.foreach(result *= _.toInt); result }
+product: (s: String)Int
+
+scala> product("Hello")
+res68: Int = 825152896
+
+
+9. Make the function of the preceding exercise a recursive function.
+
+scala>def rproduct(s: String) :Int = { if (s.length == 1) s.last.toInt else  s.head.toInt * aproduct(s.tail)   }
+
+
+10. Write a function that computes xn, where n is an integer. Use the following
+recursive definition:
+• xn = y2 if n is even and positive, where y = xn / 2.
+• xn = x· xn – 1 if n is odd and positive.
+• x0 = 1.
+• xn = 1 / x–n if n is negative.
+Don’t use a return statement.
+
+
+scala> :paste
+// Entering paste mode (ctrl-D to finish)
+
+def elevate(x: Double, n: Int) = {
+  var y = pow(x, n /2 )
+  if (n == 0)
+    1
+  else if(n > 0){
+    if (n % 2 == 0)
+      pow(y,2)
+    else
+      x * pow(x, n - 1)
+  }else
+    1 / pow(x, -n)
+
+}
+
+// Exiting paste mode, now interpreting.
+
+elevate: (x: Double, n: Int)Double
+
+scala> elevate(2,2)
+res106: Double = 4.0
+
+scala> elevate(2,4)
+res107: Double = 16.0
+
+scala> elevate(2,3)
+res108: Double = 8.0
+
+scala> elevate(2,0)
+res109: Double = 1.0
+
+scala> elevate(2,-4)
+res110: Double = 0.0625
+
+scala> 
+
